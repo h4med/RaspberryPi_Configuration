@@ -8,7 +8,8 @@ Step by step guide to set up a Compute Module Raspberry Pi.
 - [Step2: Headless set-up](#step2-headless-set-up)
 - [Step3: Installing Necessary Software](#step3-installing-necessary-software)
 - [Step4: Adding RTC](#step4-adding-rtc)
-
+- [Step5: serial Ports](#step5-serial-ports)
+- [Step6: Working with GPIOS](#step6-working-with-gpios)
 ---
 
 ## Step1: Burning Image
@@ -91,4 +92,42 @@ We can test that RTC working properly by this command:
 ```
 # hwclock -r
 2023-04-19 13:53:01.186700+03:30
+```
+
+---
+## Step5: serial Ports
+As usual we first add the configuration to **/boot/config.txt** 
+```
+#---------uart---------------
+dtoverlay=uart0,txd0_pin=14,rxd0_pin=15
+dtoverlay=uart1,txd1_pin=32,rxd1_pin=33
+```
+Then we check the serial ports:
+```
+# ls -l /dev/serial*
+lrwxrwxrwx 1 root root 7 Aug  7  2022 /dev/serial0 -> ttyAMA0
+lrwxrwxrwx 1 root root 5 Aug  7  2022 /dev/serial1 -> ttyS0
+```
+With a Usb-to-Serial hardware we can perform an echo test to check the actual hardware.
++ Todo: serial port test commands
+
+## Step6: Working with GPIOS;
+For working with GPIOs in C/C++ we are using gpiod. We need to install the tools and required libs:
+```
+apt install -y gpiod libgpiod-dev
+```
+Then we can manually set GPIOs. Suppose GPIO2 and GPIO3 are connected to LEDs, with following commands we turn them ON and OFF.
+```
+# gpioset gpiochip0 2=1
+# gpioset gpiochip0 2=0
+# gpioset gpiochip0 2=1
+# gpioset gpiochip0 2=0
+# gpioset gpiochip0 3=1
+# gpioset gpiochip0 3=0
+# gpioset gpiochip0 3=1
+# gpioset gpiochip0 3=0
+```
+For c program [code/gpio_test.c]() you can find a C program which turns on LED on GPIO3 for 1 second and then turns it off. We build the program:
+```
+gcc gpio_test.c -o gpio_test -lgpiod
 ```
