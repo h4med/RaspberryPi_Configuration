@@ -5,6 +5,9 @@ Step by step guide to set up a Compute Module Raspberry Pi.
 - [Step1: Burning Image](#step1-burning-image)
   - [Raspberry Pi OS](#raspberry-pi-os)
   - [DietPi OS](#dietpi-os)
+- [Step2: Headless set-up](#step2-headless-set-up)
+- [Step3: Installing Necessary Software](#step3-installing-necessary-software)
+- [Step4: Adding RTC](#step4-adding-rtc)
 
 ---
 
@@ -23,7 +26,7 @@ Diet Pi is a trimmed version Debian for various embedded boards such as Raspberr
 For burning image I recommend Win32 Disk Imager which you can get from [here](https://sourceforge.net/projects/win32diskimager/) and [Direct Link](https://kumisystems.dl.sourceforge.net/project/win32diskimager/Archive/win32diskimager-1.0.0-install.exe)
 
 ---
-## Step2: Headless set-up
+## Step2: Headless Set-up
 If you use DeietPi, SSH by default is enabled.   
 For Raspberry Pi OS you should enable SSH either by settings in **Imager** or by just adding an **empty file** named ```ssh``` in the boot directory.
 We will use nmap free software to find the Ip of Compute module. You can get it from [nmap.org/download](https://nmap.org/download).
@@ -43,5 +46,49 @@ After first login you must change the default password either by login prompt or
 ## Step3: Installing Necessary Software
 Depending on your application you may need different software. Because I want to build C/C++ applications locally on CM3 and I also need Python I install following apps on DietPi (for Raspberry Pi Lite these are installed by default).
 ```
-apt update && apt install -y  build-essential python3 automake autoconf
+apt update && apt install -y build-essential python3 automake autoconf
+apt install -y python3-smbus i2c-tools
+```   
+**TODO: add later in case needed**   
+
+---
+## Step4: Adding RTC
+In our carrier board we have a DS3231 RTC. [Here](https://learn.adafruit.com/adding-a-real-time-clock-to-raspberry-pi?view=all#set-up-and-test-i2c) is a good set up guide for this RTC.
+We first should enable I2C-0 and configure the pins overlay according to our specific hardware design in **boot/config.txt** by adding following lines:
+```
+#-------i2c-------------
+dtparam=i2c_arm=on
+dtparam=i2c0=on
+dtoverlay=i2c0,pins_28_29
+dtoverlay=i2c-rtc,ds3231,i2c0
+```
+Here, the DS3231 is connect to I2C-0 by pins 28 and 29 of CM3. 
+Detailed information regarding device tree configuration for Raspberry Pi can be found **[Rpi Overlays](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README)**
+After a reboot we check that hardware set up is ok:
+```
+# i2cdetect -y 0
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:                         -- -- -- -- -- -- -- --
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- UU -- -- -- -- -- -- --
+70: -- -- -- -- -- -- -- --
+
+```
+If instead of ``UU`` you see a number such as ```0x68``` it means that RTC is detected but there a problem with overlay settings. But if there is nothing in the output you should check the hardware and wiring.
+
+```
+apt -y remove fake-hwclock
+update-rc.d -f fake-hwclock remove
+systemctl disable fake-hwclock
+```
+And then follow the **systemd** settings based on the [Adafruit guide](https://learn.adafruit.com/adding-a-real-time-clock-to-raspberry-pi?view=all#raspberry-pi-oss-with-systemd-2026471).
+We the set time-zone according using ```raspi-config``` or ```dietpi-config``` accordingly.
+We can test that RTC working properly by this command:
+```
+# hwclock -r
+2023-04-19 13:53:01.186700+03:30
 ```
