@@ -1,8 +1,15 @@
 # Raspberry Pi Configuration
 Step by step to set up a Compute Module Raspberry Pi.
 
+## Table of contents
+- [Step1: Burning Image](#step1-burning-image)
+  - [Raspberry Pi OS](#raspberry-pi-os)
+  - [DietPi OS](#dietpi-os)
+
+---
+
 ## Step1: Burning Image
-first you need to bur Image, I ususally use follwoing options:
+first you need to burn an Image on your Pi, I usually use one of the follwoing options:
 
 ### Raspberry Pi OS
 You can get it from [raspberrypi.com/software/operating-systems/](https://www.raspberrypi.com/sowftware/operating-systems/).   
@@ -13,3 +20,4 @@ So we download 32bit Lite version [Direct Link for February 21st 2023 version](h
 This is the recommended one [from here](https://dietpi.com/#downloadinfo)   
 [Direct Link](https://dietpi.com/downloads/images/DietPi_RPi-ARMv8-Bullseye.7z)
 
+---
