@@ -111,7 +111,8 @@ lrwxrwxrwx 1 root root 5 Aug  7  2022 /dev/serial1 -> ttyS0
 With a Usb-to-Serial hardware we can perform an echo test to check the actual hardware.
 + Todo: serial port test commands
 
-## Step6: Working with GPIOS;
+---
+## Step6: Working with GPIOS
 For working with GPIOs in C/C++ we are using gpiod. We need to install the tools and required libs:
 ```
 apt install -y gpiod libgpiod-dev
@@ -127,7 +128,16 @@ Then we can manually set GPIOs. Suppose GPIO2 and GPIO3 are connected to LEDs, w
 # gpioset gpiochip0 3=1
 # gpioset gpiochip0 3=0
 ```
-For c program [code/gpio_test.c]() you can find a C program which turns on LED on GPIO3 for 1 second and then turns it off. We build the program:
+For c program [code/gpio_test.c](https://github.com/h4med/RaspberryPi_Configuration/blob/main/codes/gpio_test.c) you can find a C program which turns on LED on GPIO3 for 1 second and then turns it off. We build the program:
 ```
 gcc gpio_test.c -o gpio_test -lgpiod
 ```
+Suppose we have a Push button in GPIO38, we can read it's status:
+```
+gpioget gpiochip0 38
+```
+Here you can find a good guid for gpiod [libgpiod-intro-rpi](https://lloydrochester.com/post/hardware/libgpiod-intro-rpi/)
+
+---
+## Step7: GSM/4G Module 
+todo.
