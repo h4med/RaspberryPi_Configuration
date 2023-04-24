@@ -55,7 +55,7 @@ apt install -y python3-smbus i2c-tools
 ---
 ## Step4: Adding RTC
 In our carrier board we have a DS3231 RTC. [Here](https://learn.adafruit.com/adding-a-real-time-clock-to-raspberry-pi?view=all#set-up-and-test-i2c) is a good set up guide for this RTC.
-We first should enable I2C-0 and configure the pins overlay according to our specific hardware design in **boot/config.txt** by adding following lines:
+We first should enable I2C-0 and configure the correct pins overlay according to our specific hardware design in **boot/config.txt** by adding following lines:
 ```
 #-------i2c-------------
 dtparam=i2c_arm=on
@@ -64,8 +64,8 @@ dtoverlay=i2c0,pins_28_29
 dtoverlay=i2c-rtc,ds3231,i2c0
 ```
 Here, the DS3231 is connect to I2C-0 by pins 28 and 29 of CM3. 
-Detailed information regarding device tree configuration for Raspberry Pi can be found **[Rpi Overlays](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README)**
-After a reboot we check that hardware set up is ok:
+Detailed information regarding device tree configuration for Raspberry Pi can be found at **[Rpi Overlays](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README)**.
+After a reboot we can check that hardware set up is ok:
 ```
 # i2cdetect -y 0
      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
@@ -79,16 +79,17 @@ After a reboot we check that hardware set up is ok:
 70: -- -- -- -- -- -- -- --
 
 ```
-If instead of ``UU`` you see a number such as ```0x68``` it means that RTC is detected but there a problem with overlay settings. But if there is nothing in the output you should check the hardware and wiring.
+If instead of ``UU`` you see the address of chip such as ```0x68``` it means that RTC is detected but there is a problem with overlay settings. But if there is nothing in the output you should check the hardware and wiring.
+Run the following commands:
 
 ```
 apt -y remove fake-hwclock
 update-rc.d -f fake-hwclock remove
 systemctl disable fake-hwclock
 ```
-And then follow the **systemd** settings based on the [Adafruit guide](https://learn.adafruit.com/adding-a-real-time-clock-to-raspberry-pi?view=all#raspberry-pi-oss-with-systemd-2026471).
-We the set time-zone according using ```raspi-config``` or ```dietpi-config``` accordingly.
-We can test that RTC working properly by this command:
+And then follow the **systemd** settings based on the [Adafruit tutorial](https://learn.adafruit.com/adding-a-real-time-clock-to-raspberry-pi?view=all#raspberry-pi-oss-with-systemd-2026471).
+We then set the time-zone using ```raspi-config``` or ```dietpi-config``` accordingly.
+We can test that RTC works properly by this command:
 ```
 # hwclock -r
 2023-04-19 13:53:01.186700+03:30
@@ -102,7 +103,7 @@ As usual we first add the configuration to **/boot/config.txt**
 dtoverlay=uart0,txd0_pin=14,rxd0_pin=15
 dtoverlay=uart1,txd1_pin=32,rxd1_pin=33
 ```
-Then we check the serial ports:
+After a reboot we check the serial ports:
 ```
 # ls -l /dev/serial*
 lrwxrwxrwx 1 root root 7 Aug  7  2022 /dev/serial0 -> ttyAMA0
@@ -136,7 +137,7 @@ Suppose we have a Push button in GPIO38, we can read it's status:
 ```
 gpioget gpiochip0 38
 ```
-Here you can find a good guid for gpiod [libgpiod-intro-rpi](https://lloydrochester.com/post/hardware/libgpiod-intro-rpi/)
+Here you can find a good tutorial for gpiod [libgpiod-intro-rpi](https://lloydrochester.com/post/hardware/libgpiod-intro-rpi/)
 
 ---
 ## Step7: GSM/4G Module 
