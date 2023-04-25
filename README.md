@@ -1,4 +1,4 @@
-# Raspberry Pi Configuration
+# Raspberry Pi CM3 Configuration
 Step by step guide to set up a Compute Module Raspberry Pi.
 
 ## Table of contents
@@ -100,7 +100,7 @@ We can test that RTC works properly by this command:
 ```
 
 ---
-## Step5: serial Ports
+## Step5: Serial Ports
 As usual we first add the configuration to **/boot/config.txt** 
 ```
 #---------uart---------------
@@ -133,15 +133,15 @@ Then we can manually set GPIOs. Suppose GPIO2 and GPIO3 are connected to LEDs, w
 # gpioset gpiochip0 3=1
 # gpioset gpiochip0 3=0
 ```
-For c program [code/gpio_test.c](https://github.com/h4med/RaspberryPi_Configuration/blob/main/codes/gpio_test.c) you can find a C program which turns on LED on GPIO3 for 1 second and then turns it off. We build the program:
+In [code/gpio_test.c](https://github.com/h4med/RaspberryPi_Configuration/blob/main/codes/gpio_test.c) you can find a C program which turns on LED on GPIO3 for 1 second and then turns it off. You can build this program with following command:
 ```
 gcc gpio_test.c -o gpio_test -lgpiod
 ```
-Suppose we have a Push button in GPIO38, we can read it's status:
+Suppose we have a Push button in GPIO38, we can read it's status by following command:
 ```
 gpioget gpiochip0 38
 ```
-Here you can find a good tutorial for gpiod [libgpiod-intro-rpi](https://lloydrochester.com/post/hardware/libgpiod-intro-rpi/)
+Here you can find a good tutorial for working with gpiod [libgpiod-intro-rpi](https://lloydrochester.com/post/hardware/libgpiod-intro-rpi/)
 
 ---
 ## Step7: GSM/4G Module 
