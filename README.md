@@ -40,7 +40,7 @@ Nmap scan report for 192.168.137.243
 Host is up (0.0041s latency).
 MAC Address: B8:27:EB:38:73:9C (Raspberry Pi Foundation)
 ```
-Default username and password for DietPi OS are **root/dietpi**   
+Default username and password for DietPi OS are **root/dietpi** and for Raspberry Pi OS is **pi/raspberry** unless you have changed it in settings in Imager before burning the image.
 After first login you must change the default password either by login prompt or using ```passwd``` in any Linux.
 
 ---
@@ -49,7 +49,11 @@ Depending on your application you may need different software. Because I want to
 ```
 apt update && apt install -y build-essential python3 automake autoconf
 apt install -y python3-smbus i2c-tools
+apt install -y openssh-server
+apt purge --auto-remove dropbear
 ```   
+After installing **openssh-server** you can set it up as a sftp-server for file transfer using [How to setup an SFTP server on Ubuntu](https://www.pcwdld.com/setup-sftp-server-on-ubuntu).
+
 **TODO: add later in case needed**   
 
 ---
