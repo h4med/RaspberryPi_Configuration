@@ -51,11 +51,12 @@ apt update && apt install -y build-essential python3 automake autoconf
 apt install -y python3-smbus i2c-tools
 apt install -y lsb-release
 apt install -y python3-pip
+apt install -y git
 apt install -y openssh-server
 apt purge --auto-remove dropbear
 ```   
 After installing **openssh-server** you can set it up as a sftp-server for file transfer using [How to setup an SFTP server on Ubuntu](https://www.pcwdld.com/asetup-sftp-server-on-ubuntu).
-After installing openssh-server you should enable root login for dietpi by commenting out following line in **/etc/ssh/sshd_config**
+After installing openssh-server you should enable root login for dietpi by commenting out the following line in **/etc/ssh/sshd_config**
 ```
 PermitRootLogin yes
 ```
