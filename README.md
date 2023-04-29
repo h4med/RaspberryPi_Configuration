@@ -10,7 +10,7 @@ Step by step guide to set up a Compute Module Raspberry Pi.
 - [Step4: Adding RTC](#step4-adding-rtc)
 - [Step5: serial Ports](#step5-serial-ports)
 - [Step6: Working with GPIO](#step6-working-with-gpios)
-- [Step7: GSM/4G Module ](#step6-working-with-gpios)
+- [Step7: GSM/4G Module ](#step7-gsm4g-module)
 ---
 
 ## Step1: Burning Image
@@ -158,7 +158,7 @@ first we install needed kernel headers:
 apt install raspberrypi-kernel-headers
 ```
 Then we copy or clone the drivers source from here: [Quectel_EC200T_Linux_USB_Driver](/Quectel_EC200T_Linux_USB_Driver)
-Then:
+ and then:
 ```
 cd Quectel_EC200T_Linux_USB_Driver
 make
