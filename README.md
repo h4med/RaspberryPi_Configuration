@@ -170,3 +170,50 @@ After reboot you should see 3 USB ports added:
 # ls /dev/ttyUSB*
 /dev/ttyUSB0  /dev/ttyUSB1  /dev/ttyUSB2
 ```
+If you can not see the additional serial ports, you can debug with followint commands:
+```
+# lsusb -t
+/:  Bus 01.Port 1: Dev 1, Class=root_hub, Driver=dwc_otg/1p, 480M
+    |__ Port 1: Dev 2, If 0, Class=Hub, Driver=hub/3p, 480M
+        |__ Port 1: Dev 3, If 0, Class=Vendor Specific Class, Driver=smsc95xx, 480M
+        |__ Port 2: Dev 4, If 3, Class=Vendor Specific Class, Driver=option, 480M
+        |__ Port 2: Dev 4, If 1, Class=CDC Data, Driver=cdc_ether, 480M
+        |__ Port 2: Dev 4, If 4, Class=Vendor Specific Class, Driver=option, 480M
+        |__ Port 2: Dev 4, If 2, Class=Vendor Specific Class, Driver=option, 480M
+        |__ Port 2: Dev 4, If 0, Class=Communications, Driver=cdc_ether, 480M
+```
+And:
+```
+# cat /sys/kernel/debug/usb/devices
+...
+T:  Bus=01 Lev=02 Prnt=02 Port=01 Cnt=02 Dev#=  4 Spd=480  MxCh= 0
+D:  Ver= 2.00 Cls=ef(misc ) Sub=02 Prot=01 MxPS=64 #Cfgs=  1
+P:  Vendor=2c7c ProdID=6005 Rev= 3.18
+S:  Manufacturer=Android
+S:  Product=Android
+S:  SerialNumber=0000
+C:* #Ifs= 5 Cfg#= 1 Atr=e0 MxPwr=500mA
+A:  FirstIf#= 0 IfCount= 2 Cls=02(comm.) Sub=06 Prot=00
+I:* If#= 0 Alt= 0 #EPs= 1 Cls=02(comm.) Sub=06 Prot=00 Driver=cdc_ether
+E:  Ad=87(I) Atr=03(Int.) MxPS=  64 Ivl=4096ms
+I:  If#= 1 Alt= 0 #EPs= 0 Cls=0a(data ) Sub=00 Prot=00 Driver=cdc_ether
+I:* If#= 1 Alt= 1 #EPs= 2 Cls=0a(data ) Sub=00 Prot=00 Driver=cdc_ether
+E:  Ad=83(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=0c(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:* If#= 2 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=00 Prot=00 Driver=option
+E:  Ad=82(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=0b(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:* If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=00 Prot=00 Driver=option
+E:  Ad=89(I) Atr=03(Int.) MxPS=  64 Ivl=4096ms
+E:  Ad=86(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=0f(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+I:* If#= 4 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=00 Prot=00 Driver=option
+E:  Ad=88(I) Atr=03(Int.) MxPS=  64 Ivl=4096ms
+E:  Ad=81(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+E:  Ad=0a(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
+```
+For configuration of the module you should install **minicom** and then run it:
+```
+apt install minicom
+minicom -D /dev/ttyUSB3
+```
