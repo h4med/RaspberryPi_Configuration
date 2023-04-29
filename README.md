@@ -9,7 +9,8 @@ Step by step guide to set up a Compute Module Raspberry Pi.
 - [Step3: Installing Necessary Software](#step3-installing-necessary-software)
 - [Step4: Adding RTC](#step4-adding-rtc)
 - [Step5: serial Ports](#step5-serial-ports)
-- [Step6: Working with GPIOS](#step6-working-with-gpios)
+- [Step6: Working with GPIO](#step6-working-with-gpios)
+- [Step7: GSM/4G Module ](#step6-working-with-gpios)
 ---
 
 ## Step1: Burning Image
@@ -123,7 +124,7 @@ With a Usb-to-Serial hardware we can perform an echo test to check the actual ha
 + Todo: serial port test commands
 
 ---
-## Step6: Working with GPIOS
+## Step6: Working with GPIOs
 For working with GPIOs in C/C++ we are using gpiod. We need to install the tools and required libs:
 ```
 apt install -y gpiod libgpiod-dev
@@ -151,4 +152,21 @@ Here you can find a good tutorial for working with gpiod [libgpiod-intro-rpi](ht
 
 ---
 ## Step7: GSM/4G Module 
-todo.
+We have a Quectel EC200T and we have to make and install the driver for CM3 USB bus.
+first we install needed kernel headers:
+```
+apt install raspberrypi-kernel-headers
+```
+Then we copy or clone the drivers source from here: [Quectel_EC200T_Linux_USB_Driver](/Quectel_EC200T_Linux_USB_Driver)
+Then:
+```
+cd Quectel_EC200T_Linux_USB_Driver
+make
+make install
+reboot
+```
+After reboot you should see 3 USB ports added:
+```
+# ls /dev/ttyUSB*
+/dev/ttyUSB0  /dev/ttyUSB1  /dev/ttyUSB2
+```
