@@ -1,5 +1,5 @@
 # Raspberry Pi CM3 Configuration
-Step by step guide to set up a Compute Module Raspberry Pi.
+Step by step guide to set up a Compute Module Raspberry Pi Model 3.
 
 ## Table of contents
 - [Step1: Burning Image](#step1-burning-image)
@@ -216,4 +216,11 @@ For configuration of the module you should install **minicom** and then run it:
 ```
 apt install minicom
 minicom -D /dev/ttyUSB3
+```
+To add the network connection we should add the following code to **/etc/network/interfaces**
+```
+# Ethernet EC200T (USB)
+allow-hotplug usb0
+iface usb0 inet dhcp
+metric 1
 ```
