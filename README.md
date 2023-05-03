@@ -61,6 +61,8 @@ After installing openssh-server you should enable root login for dietpi by comme
 ```
 PermitRootLogin yes
 ```
+To use VSCode remotely on your Raspberry Pi you can use **Remote SSH** extension on VSCode.
+If you have problems installing it via VSCode, This is a good help for **[offline installation](https://medium.com/@debugger24/installing-vscode-server-on-remote-machine-in-private-network-offline-installation-16e51847e275)**
 **TODO: add later in case needed**   
 
 ---
