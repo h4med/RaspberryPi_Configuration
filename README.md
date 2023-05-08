@@ -8,6 +8,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
 - [Step2: Headless set-up](#step2-headless-set-up)
 - [Step3: Installing Necessary Software](#step3-installing-necessary-software)
 - [Step4: Adding RTC](#step4-adding-rtc)
+  - [Time-zone correction for IRAN 2023](#time-zone-correction-for-iran-2023)
 - [Step5: serial Ports](#step5-serial-ports)
 - [Step6: Working with GPIO](#step6-working-with-gpios)
 - [Step7: GSM/4G Module ](#step7-gsm4g-module)
@@ -62,8 +63,7 @@ After installing openssh-server you should enable root login for dietpi by comme
 PermitRootLogin yes
 ```
 To use VSCode remotely on your Raspberry Pi you can use **Remote SSH** extension on VSCode.
-If you have problems installing it via VSCode, This is a good help for **[offline installation](https://medium.com/@debugger24/installing-vscode-server-on-remote-machine-in-private-network-offline-installation-16e51847e275)**
-**TODO: add later in case needed**   
+If you have problems installing it via VSCode, This is a good help for **[offline installation](https://medium.com/@debugger24/installing-vscode-server-on-remote-machine-in-private-network-offline-installation-16e51847e275)**   
 
 ---
 ## Step4: Adding RTC
@@ -107,7 +107,16 @@ We can test that RTC works properly by this command:
 # hwclock -r
 2023-04-19 13:53:01.186700+03:30
 ```
-
+### Time-zone correction for IRAN 2023 (IRST)
+If your kernel is old and Your time-zone for Iran is IRDT (Iran Daylight Time) then after March 2023 your time shift for summer time is 4:30 instead of 3:30. You should change your time-zone to IRST (Iran Standard Time), for this copy **[IRST/Iran-noDST]()** to:
+```
+cp Iran-noDST /usr/share/zoneinfo/Asia/
+```
+Then change the links to new file:
+```
+unlink /etc/localtime
+ln -s /usr/share/zoneinfo/Asia/Iran-noDST /etc/localtime
+```
 ---
 ## Step5: Serial Ports
 As usual we first add the configuration to **/boot/config.txt** 
