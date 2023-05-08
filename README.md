@@ -107,6 +107,11 @@ We can test that RTC works properly by this command:
 # hwclock -r
 2023-04-19 13:53:01.186700+03:30
 ```
+You can use the following command to **read temperature** from DS3231 RTC:
+```
+cat /sys/bus/i2c/devices/1-0068/hwmon/hwmon1/temp1_input
+```
+
 ### Time-zone correction for IRAN 2023 (IRST)
 If your kernel is old and your time-zone for Iran is IRDT (Iran Daylight Time) then after March 20th 2023 your time shift for summer time is 4:30 instead of 3:30. You should change your time-zone to IRST (Iran Standard Time), copy this file: **[IRST/Iran-noDST](https://github.com/h4med/RaspberryPi_Configuration/tree/main/IRST)** to:
 ```
