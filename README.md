@@ -8,7 +8,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
 - [Step2: Headless set-up](#step2-headless-set-up)
 - [Step3: Installing Necessary Software](#step3-installing-necessary-software)
 - [Step4: Adding RTC](#step4-adding-rtc)
-  - [Time-zone correction for IRAN 2023](#time-zone-correction-for-iran-2023)
+  - [Time-zone correction for IRAN 2023](#time-zone-correction-for-iran-2023-irst)
 - [Step5: serial Ports](#step5-serial-ports)
 - [Step6: Working with GPIO](#step6-working-with-gpios)
 - [Step7: GSM/4G Module ](#step7-gsm4g-module)
@@ -108,7 +108,7 @@ We can test that RTC works properly by this command:
 2023-04-19 13:53:01.186700+03:30
 ```
 ### Time-zone correction for IRAN 2023 (IRST)
-If your kernel is old and Your time-zone for Iran is IRDT (Iran Daylight Time) then after March 2023 your time shift for summer time is 4:30 instead of 3:30. You should change your time-zone to IRST (Iran Standard Time), for this copy **[IRST/Iran-noDST]()** to:
+If your kernel is old and your time-zone for Iran is IRDT (Iran Daylight Time) then after March 20th 2023 your time shift for summer time is 4:30 instead of 3:30. You should change your time-zone to IRST (Iran Standard Time), for this copy **[IRST/Iran-noDST]()** to:
 ```
 cp Iran-noDST /usr/share/zoneinfo/Asia/
 ```
