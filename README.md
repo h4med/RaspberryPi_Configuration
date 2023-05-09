@@ -137,6 +137,9 @@ lrwxrwxrwx 1 root root 7 Aug  7  2022 /dev/serial0 -> ttyAMA0
 lrwxrwxrwx 1 root root 5 Aug  7  2022 /dev/serial1 -> ttyS0
 ```
 With a Usb-to-Serial hardware we can perform an echo test to check the actual hardware.
+
+If you want to use serial console on a specific UART port you should change it in **/boot/cmdline.txt**, then change ```console=serial0,115200``` to what you need for example ```console=ttyAMA1,115200```
+
 + Todo: serial port test commands
 
 ---
