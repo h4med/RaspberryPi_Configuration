@@ -140,7 +140,20 @@ With a Usb-to-Serial hardware we can perform an echo test to check the actual ha
 
 If you want to use serial console on a specific UART port you should change it in **/boot/cmdline.txt**, then change ```console=serial0,115200``` to what you need for example ```console=ttyAMA1,115200```
 
-+ Todo: serial port test commands
+To send data tp serial port from Linux command line you can simply use ```echo``` as follows:
+```
+echo "some text" > /dev/serial1
+```
+To retrieve the serial port settings:
+```
+# stty -F /dev/serial1
+speed 9600 baud; line = 0;
+-brkint -imaxbel
+```
+And to set baudrate for example:
+```
+stty -F /dev/serial1 115200
+```
 
 ---
 ## Step6: Working with GPIOs
