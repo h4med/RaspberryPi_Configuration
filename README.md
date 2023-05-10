@@ -9,7 +9,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
 - [Step3: Installing Necessary Software](#step3-installing-necessary-software)
 - [Step4: Adding RTC](#step4-adding-rtc)
   - [Time-zone correction for IRAN 2023](#time-zone-correction-for-iran-2023-irst)
-- [Step5: serial Ports](#step5-serial-ports)
+- [Step5: Serial Ports](#step5-serial-ports)
 - [Step6: Working with GPIO](#step6-working-with-gpios)
 - [Step7: GSM/4G Module ](#step7-gsm4g-module)
 ---
@@ -140,7 +140,7 @@ With a Usb-to-Serial hardware we can perform an echo test to check the actual ha
 
 If you want to use serial console on a specific UART port you should change it in **/boot/cmdline.txt**, then change ```console=serial0,115200``` to what you need for example ```console=ttyAMA1,115200```
 
-To send data tp serial port from Linux command line you can simply use ```echo``` as follows:
+To send data to serial port from Linux command line you can simply use ```echo``` as follows:
 ```
 echo "some text" > /dev/serial1
 ```
@@ -150,7 +150,7 @@ To retrieve the serial port settings:
 speed 9600 baud; line = 0;
 -brkint -imaxbel
 ```
-And to set baudrate for example:
+And to set the baudrate for example:
 ```
 stty -F /dev/serial1 115200
 ```
