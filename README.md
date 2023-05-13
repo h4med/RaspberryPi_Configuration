@@ -144,6 +144,11 @@ To send data to serial port from Linux command line you can simply use ```echo``
 ```
 echo "some text" > /dev/serial1
 ```
+To receive data you can simpley use ```cat``` on the serial port:
+```
+# cat < /dev/serial1
+some text
+```
 To retrieve the serial port settings:
 ```
 # stty -F /dev/serial1
