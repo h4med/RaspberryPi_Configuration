@@ -65,6 +65,8 @@ PermitRootLogin yes
 To use VSCode remotely on your Raspberry Pi you can use **Remote SSH** extension on VSCode.
 If you have problems installing it via VSCode, This is a good help for **[offline installation](https://medium.com/@debugger24/installing-vscode-server-on-remote-machine-in-private-network-offline-installation-16e51847e275)**   
 
+If you needed to manually install CMake in case you needed the latest version not the version available in repository, [this is a good tutorial](https://linuxhint.com/3-ways-install-cmake-raspberry-pi/).
+
 ---
 ## Step4: Adding RTC
 In our carrier board we have a DS3231 RTC. [Here](https://learn.adafruit.com/adding-a-real-time-clock-to-raspberry-pi?view=all#set-up-and-test-i2c) is a good set up guide for this RTC.
