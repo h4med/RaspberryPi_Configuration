@@ -7,6 +7,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
   - [DietPi OS](#dietpi-os)
 - [Step2: Headless set-up](#step2-headless-set-up)
 - [Step3: Installing Necessary Software](#step3-installing-necessary-software)
+  - [Initializing Git](#initializing-git)
 - [Step4: Adding RTC](#step4-adding-rtc)
   - [Time-zone correction for IRAN 2023](#time-zone-correction-for-iran-2023-irst)
 - [Step5: Serial Ports](#step5-serial-ports)
@@ -66,6 +67,17 @@ To use VSCode remotely on your Raspberry Pi you can use **Remote SSH** extension
 If you have problems installing it via VSCode, This is a good help for **[offline installation](https://medium.com/@debugger24/installing-vscode-server-on-remote-machine-in-private-network-offline-installation-16e51847e275)**   
 
 If you needed to manually install CMake in case you needed the latest version not the version available in repository, [this is a good tutorial](https://linuxhint.com/3-ways-install-cmake-raspberry-pi/).
+
+### Initializing Git
+If you want to initialize a git repo on a directory your CM3 RPi these are the command:
+```
+$ git config --global user.name "Your Name"
+$ git config --global user.email "you@youraddress.com"
+$ git config --global push.default matching
+$ git config --global alias.co checkout
+$ git init
+```
+
 
 ---
 ## Step4: Adding RTC
@@ -254,7 +266,7 @@ E:  Ad=0a(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
 For configuration of the module you should install **minicom** and then run it:
 ```
 apt install minicom
-minicom -D /dev/ttyUSB3
+minicom -D /dev/ttyUSB2
 ```
 To add the network connection we should add the following code to **/etc/network/interfaces**
 ```
