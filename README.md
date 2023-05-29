@@ -87,7 +87,7 @@ And the size of disk:
 ```
 df -h
 ```
-If you are using **DeitPi** you can run ```dietpi-cleaner``` utility to clean some cache or log files.
+If you are using **DeitPi** you can run ```dietpi-cleaner``` utility to clean some cache or log files. With ```dietpi-drive_manager``` you can manage swap size or resize the disk if you need it.
 
 ---
 ## Step4: Adding RTC
