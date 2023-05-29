@@ -8,6 +8,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
 - [Step2: Headless set-up](#step2-headless-set-up)
 - [Step3: Installing Necessary Software](#step3-installing-necessary-software)
   - [Initializing Git](#initializing-git)
+  - [Storage Management](#storage-management)
 - [Step4: Adding RTC](#step4-adding-rtc)
   - [Time-zone correction for IRAN 2023](#time-zone-correction-for-iran-2023-irst)
 - [Step5: Serial Ports](#step5-serial-ports)
@@ -77,7 +78,16 @@ $ git config --global push.default matching
 $ git config --global alias.co checkout
 $ git init
 ```
-
+### Storage Management
+With following command you can you can check the size of each directory:
+```
+du -hs .[^.]* * | sort -n
+```
+And the size of disk:
+```
+df -h
+```
+If you are using **DeitPi** you can run ```dietpi-cleaner``` utility to clean some cache or log files.
 
 ---
 ## Step4: Adding RTC
