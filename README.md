@@ -89,6 +89,18 @@ df -h
 ```
 If you are using **DeitPi** you can run ```dietpi-cleaner``` utility to clean some cache or log files. With ```dietpi-drive_manager``` you can manage swap size or resize the disk if you need it.
 
+## sqlite Commands
+If you have a sqlite db on your embedded system you can use following commands to read tables:
+```
+apt install sqlite3
+sqlite3 -column -header
+.open db.sqlite3
+.databases
+.tables
+SELECT * FROM style_meta;
+.exit 
+```
+
 ---
 ## Step4: Adding RTC
 In our carrier board we have a DS3231 RTC. [Here](https://learn.adafruit.com/adding-a-real-time-clock-to-raspberry-pi?view=all#set-up-and-test-i2c) is a good set up guide for this RTC.
