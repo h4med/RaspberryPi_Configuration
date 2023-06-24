@@ -69,6 +69,23 @@ If you have problems installing it via VSCode, This is a good help for **[offlin
 
 If you needed to manually install CMake in case you needed the latest version not the version available in repository, [this is a good tutorial](https://linuxhint.com/3-ways-install-cmake-raspberry-pi/).
 
+It is easier to copy your public key to CM3, first generate it on your PC:
+```
+ssh-keygen.exe
+```
+Then send it to target (here CM3):
+```
+ssh-copy-id user@server
+```
+or manually copy it to ```~/.ssh/authorized_keys```:
+```
+cat ~/.ssh/id_rsa.pub | ssh user@server 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys'
+```
+Then you can ssh to server using your private key:
+```
+ssh user@server -i ~/.ssh/id_rsa
+```
+
 ### Initializing Git
 If you want to initialize a git repo on a directory your CM3 RPi these are the command:
 ```
@@ -78,6 +95,7 @@ $ git config --global push.default matching
 $ git config --global alias.co checkout
 $ git init
 ```
+
 ### Storage Management
 With following command you can you can check the size of each directory:
 ```
