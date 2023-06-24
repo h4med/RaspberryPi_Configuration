@@ -108,10 +108,14 @@ df -h
 ```
 If you are using **DeitPi** you can run ```dietpi-cleaner``` utility to clean some cache or log files. With ```dietpi-drive_manager``` you can manage swap size or resize the disk if you need it.
 
-## sqlite Commands
+### sqlite Commands
 If you have a sqlite db on your embedded system you can use following commands to read tables:
+Installation:
 ```
 apt install sqlite3
+```
+Working with DB:
+```
 sqlite3 -column -header
 .open db.sqlite3
 .databases
