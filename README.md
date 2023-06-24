@@ -6,9 +6,10 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
   - [Raspberry Pi OS](#raspberry-pi-os)
   - [DietPi OS](#dietpi-os)
 - [Step2: Headless set-up](#step2-headless-set-up)
-- [Step3: Installing Necessary Software](#step3-installing-necessary-software)
+- [Step3: Necessary Software & SSH Settings](#step3-necessary-software--ssh-settings)
   - [Initializing Git](#initializing-git)
   - [Storage Management](#storage-management)
+  - [sqlite commands](#sqlite-commands)
 - [Step4: Adding RTC](#step4-adding-rtc)
   - [Time-zone correction for IRAN 2023](#time-zone-correction-for-iran-2023-irst)
 - [Step5: Serial Ports](#step5-serial-ports)
@@ -48,7 +49,7 @@ Default username and password for DietPi OS are **root/dietpi** and for Raspberr
 After first login you must change the default password either by login prompt or using ```passwd``` in any Linux.
 
 ---
-## Step3: Installing Necessary Software
+## Step3: Necessary Software & SSH Settings
 Depending on your application you may need different software. Because I want to build C/C++ applications locally on CM3 and I also need Python I install following apps on DietPi (for Raspberry Pi Lite these are installed by default).
 ```
 apt update && apt install -y build-essential python3 automake autoconf
