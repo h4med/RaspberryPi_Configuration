@@ -6,6 +6,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
   - [Raspberry Pi OS](#raspberry-pi-os)
   - [DietPi OS](#dietpi-os)
 - [Step2: Headless set-up](#step2-headless-set-up)
+  - [OTP and Setting MAC address](#otp-and-setting-mac-address)
 - [Step3: Necessary Software & SSH Settings](#step3-necessary-software--ssh-settings)
   - [Initializing Git](#initializing-git)
   - [Storage Management](#storage-management)
@@ -47,6 +48,42 @@ MAC Address: B8:27:EB:38:73:9C (Raspberry Pi Foundation)
 ```
 Default username and password for DietPi OS are **root/dietpi** and for Raspberry Pi OS is **pi/raspberry** unless you have changed it in settings in Imager before burning the image.
 After first login you must change the default password either by login prompt or using ```passwd``` in any Linux.
+
+### OTP and Setting MAC address
+CM3 uses the either board's serial number or MAC address written in OPT to set the MAC address. These are written for each CM3 in OTP (One Time Programmable) Memory. You can see [this PDF](/datasheets/Using-the-One-time-programmable-memory-on-Raspberry-Pi-single-board-computers.pdf) which explains OTP on Raspberry Pi SBCs. Run following command to display content of OTP:
+```
+vcgencmd otp_dump
+```
+Address 28 is serial number, 36-43 is for customer usage and 64-65 is for MAC address if set. By default MAC address in OTP is not set and by above command you get 0 in its address. To manually set MAC address you can run following commands:
+```
+mac0="70:b3:d5:04:c8:3c"
+ip link set dev eth0 down
+ip link set dev eth0 address $mac0
+ip link set dev eth0 up
+```
+To add this procedure to startup in kernel 6.1 we should use **systemd**. Open in editor:
+```
+nano /etc/systemd/system/macchanger.service
+```
+Write this:
+```
+[Unit]
+Description=MAC Address Changer
+
+[Service]
+ExecStart=/path/to/your/script.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+You have to give your path to script, for example [mac_add_setter.sh](/codes/mac_add_setter.sh). And finally:
+```
+systemctl daemon-reload
+systemctl enable macchanger.service
+systemctl start macchanger.service
+systemctl status macchanger.service
+```
+
 
 ---
 ## Step3: Necessary Software & SSH Settings
