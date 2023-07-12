@@ -91,6 +91,7 @@ Depending on your application you may need different software. Because I want to
 ```
 apt update && apt install -y build-essential python3 automake autoconf
 apt install -y python3-smbus i2c-tools
+apt install -y can-utils
 apt install -y lsb-release
 apt install -y python3-pip
 apt install -y git
@@ -356,4 +357,39 @@ To add the network connection we should add the following code to **/etc/network
 allow-hotplug usb0
 iface usb0 inet dhcp
 metric 1
+```
+
+## Step8 - CAN BUS setup using MCP2515
+To interface MCP2515 CAN controller ICs to SPI bus we should first enable SPI and then configure overlays accordingly in ```config.txt``` as follows:
+```
+#-------SPI-CAN---------
+dtparam=spi=on
+dtoverlay=mcp2515-can0,oscillator=24000000,interrupt=12
+
+dtoverlay=spi1-1cs
+dtoverlay=mcp2515,spi1-0,oscillator=24000000,interrupt=13
+```
+Please note that based on your hardware schematic pin configurations may differ. Then we add the configuration network settings in ```/etc/network/interfaces``` (don't forget to install canutils in [step3](#step3-necessary-software--ssh-settings))
+```
+# CAN settings
+auto can0
+iface can0 inet manual
+    pre-up /sbin/ip link set can0 type can bitrate 1000000
+    up /sbin/ifconfig can0 up
+    down /sbin/ifconfig can0 down
+
+auto can1
+iface can1 inet manual
+    pre-up /sbin/ip link set can1 type can bitrate 1000000
+    up /sbin/ifconfig can1 up
+    down /sbin/ifconfig can1 down
+```
+Then reboot. You can check ```dmesg``` or follwing directories to make sure everything is OK:
+```
+~# ls /sys/bus/spi/devices/
+spi0.0  spi0.1  spi1.0
+~# ls /sys/bus/spi/devices/spi0.0/net/
+can1
+~# ls /sys/bus/spi/devices/spi1.0/net/
+can0
 ```
