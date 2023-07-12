@@ -1,0 +1,45 @@
+# Location: /etc/network/interfaces
+# Please modify network settings via: dietpi-config
+# Or create your own drop-ins in: /etc/network/interfaces.d/
+
+# Drop-in configs
+source interfaces.d/*
+
+# Ethernet
+allow-hotplug eth0
+iface eth0 inet static
+address 192.168.0.102
+netmask 255.255.255.0
+gateway 192.168.0.1
+dns-nameservers 8.8.8.8 8.8.4.4
+metric 1
+
+allow-hotplug eth1
+iface eth1 inet static
+address 192.168.137.102
+netmask 255.255.255.0
+gateway 192.168.137.1
+metric 100
+
+
+# WiFi
+#allow-hotplug wlan0
+#iface wlan0 inet dhcp
+#address 192.168.137.102
+#netmask 255.255.255.0
+#gateway 192.168.137.1
+#dns-nameservers 192.168.137.1
+#wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+
+# CAN settings
+auto can0
+iface can0 inet manual
+    pre-up /sbin/ip link set can0 type can bitrate 1000000
+    up /sbin/ifconfig can0 up
+    down /sbin/ifconfig can0 down
+
+auto can1
+iface can1 inet manual
+    pre-up /sbin/ip link set can1 type can bitrate 1000000
+    up /sbin/ifconfig can1 up
+    down /sbin/ifconfig can1 down

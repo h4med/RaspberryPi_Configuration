@@ -99,7 +99,7 @@ apt install -y git
 apt install -y openssh-server
 apt purge --auto-remove dropbear
 ```   
-After installing **openssh-server** you can set it up as a sftp-server for file transfer using [How to setup an SFTP server on Ubuntu](https://www.pcwdld.com/asetup-sftp-server-on-ubuntu).
+After installing **openssh-server** you can set it up as a sftp-server for file transfer using [How to setup an SFTP server on Ubuntu](https://www.pcwdld.com/setup-sftp-server-on-ubuntu).
 After installing openssh-server you should enable root login for dietpi by commenting out the following line in **/etc/ssh/sshd_config**
 ```
 PermitRootLogin yes

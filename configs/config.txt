@@ -72,7 +72,12 @@ dtparam=audio=off
 
 #-------I2C-------------
 dtparam=i2c_arm=on
-#dtparam=i2c_arm_baudrate=100000
+dtparam=i2c0=on
+dtparam=i2c1=off
+dtparam=i2c_arm_baudrate=100000
+dtoverlay=i2c0,pins_28_29
+dtoverlay=i2c-rtc,ds3231,i2c0
+
 
 #-------SPI-CAN---------
 dtparam=spi=on
@@ -83,7 +88,11 @@ dtoverlay=mcp2515,spi1-0,oscillator=24000000,interrupt=13
 
 #-------Serial/UART-----
 # NB: "enable_uart=1" will enforce "core_freq=250" on RPi models with onboard WiFi.
-enable_uart=0
+enable_uart=1
+#----RS485 - /dev/serial0
+dtoverlay=uart0,txd0_pin=14,rxd0_pin=15
+#----RS232 - /dev/serial1
+dtoverlay=uart1,txd1_pin=32,rxd1_pin=33
 
 #-------SD card HPD-----
 # Comment to enable SD card hot-plug detection, while booting via USB or network.
@@ -91,7 +100,7 @@ enable_uart=0
 dtparam=sd_poll_once
 
 #-------Overclock-------
-temp_limit=75
+temp_limit=70
 initial_turbo=20
 
 #over_voltage=0
