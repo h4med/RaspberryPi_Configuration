@@ -16,6 +16,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
 - [Step5: Serial Ports](#step5-serial-ports)
 - [Step6: Working with GPIO](#step6-working-with-gpios)
 - [Step7: GSM/4G Module ](#step7-gsm4g-module)
+- [Step8: CAN BUS setup using MCP2515](#step8-can-bus-setup-using-mcp2515)
 ---
 
 ## Step1: Burning Image
@@ -359,7 +360,7 @@ iface usb0 inet dhcp
 metric 1
 ```
 
-## Step8 - CAN BUS setup using MCP2515
+## Step8: CAN BUS setup using MCP2515
 To interface MCP2515 CAN controller ICs to SPI bus we should first enable SPI and then configure overlays accordingly in ```config.txt``` as follows:
 ```
 #-------SPI-CAN---------
