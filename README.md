@@ -162,6 +162,7 @@ sqlite3 -column -header
 SELECT * FROM style_meta;
 .exit 
 ```
+If you ever wanted to install MySQL(MariaDB) on your Raspberry P [this](https://linuxhint.com/setup-mysql-raspberry-pi/) is a good starting point.
 
 ---
 ## Step4: Adding RTC
