@@ -125,6 +125,7 @@ Then you can ssh to server using your private key:
 ```
 ssh user@server -i ~/.ssh/id_rsa
 ```
+After adding your public key to ```authorized_keys``` in CM3, you can use **Remote SSH** extension in **VSCode** to directly browse and develope on CM3.
 
 ### Initializing Git
 If you want to initialize a git repo on a directory your CM3 RPi these are the command:
