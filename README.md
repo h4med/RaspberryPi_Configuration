@@ -164,7 +164,13 @@ SELECT * FROM style_meta;
 .exit 
 ```
 If you ever wanted to install MySQL(MariaDB) on your Raspberry P [this](https://linuxhint.com/setup-mysql-raspberry-pi/) is a good starting point.
-
+After installation:
+```
+mysql -u root -p
+CREATE DATABASE db_name;
+USE db_name;
+source /path/to/file.sql
+```
 ---
 ## Step4: Adding RTC
 In our carrier board we have a DS3231 RTC. [Here](https://learn.adafruit.com/adding-a-real-time-clock-to-raspberry-pi?view=all#set-up-and-test-i2c) is a good set up guide for this RTC.
