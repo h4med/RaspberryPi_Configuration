@@ -85,6 +85,38 @@ systemctl start macchanger.service
 systemctl status macchanger.service
 ```
 
+### NTP Client Set-up
+Step 1: Install NTP Package
+```
+apt update
+apt install ntp
+```
+Step 2: Backup Existing Configuration (Optional)
+```
+cp /etc/ntp.conf /etc/ntp.conf.backup
+```
+Step 3: Edit NTP Configuration File
+```
+nano /etc/ntp.conf
+```
+Look for the lines starting with pool or server and comment them out by placing a # in front of them. Then, add the line below to specify the local NTP server.
+
+```
+server 192.168.0.1 iburst
+```
+Step 4: Restart NTP Service
+```
+systemctl restart ntp
+```
+Step 5: Enable NTP Service to Start on Boot
+```
+systemctl enable ntp
+```
+Step 6: Verify Configuration
+After completing these steps, you should verify that the NTP client is properly synchronized with the server. You can do this by running:
+```
+ntpq -p
+```
 
 ---
 ## Step3: Necessary Software & SSH Settings
