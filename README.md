@@ -7,6 +7,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
   - [DietPi OS](#dietpi-os)
 - [Step2: Headless set-up](#step2-headless-set-up)
   - [OTP and Setting MAC address](#otp-and-setting-mac-address)
+  - [NTP Client Set-up](#ntp-client-set-up)
 - [Step3: Necessary Software & SSH Settings](#step3-necessary-software--ssh-settings)
   - [Initializing Git](#initializing-git)
   - [Storage Management](#storage-management)
