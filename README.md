@@ -25,7 +25,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
 first you need to burn an Image on your Pi, I usually use one of the following options:
 
 ### Raspberry Pi OS
-You can get it from [raspberrypi.com/software/operating-systems/](https://www.raspberrypi.com/sowftware/operating-systems/).   
+You can get it from [raspberrypi.com/software/operating-systems/](https://www.raspberrypi.com/software/operating-systems/).   
 You can choose 32bit or 64bit OS but my daily experience shows that 64bit version, as of now (Apr 2023), specially regarding Wifi is a bit unstable.   
 So we download 32bit Lite version [Direct Link for February 21st 2023 version](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2023-02-22/2023-02-21-raspios-bullseye-armhf-lite.img.xz)
 To burn the image you can use Raspberry Pi Imager: [raspberrypi.com/software/](https://downloads.raspberrypi.org/imager/imager_latest.exe)
