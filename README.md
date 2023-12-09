@@ -145,6 +145,18 @@ apt install -y can-utils
 apt install -y lsb-release
 apt install -y python3-pip
 apt install -y git
+```
+For installing docker:
+
+```
+curl -sSL https://get.docker.com | sh
+```
+After installing docker you may need to add your user to docker group.
+```
+(sudo) usermod -aG docker YOUR_USER
+```
+For removing dropbear and replacing it with openssh-server:
+```
 apt install -y openssh-server
 apt purge --auto-remove dropbear
 ```   
@@ -177,7 +189,7 @@ ssh user@server -i ~/.ssh/id_rsa
 After adding your public key to ```authorized_keys``` in CM3, you can use **Remote SSH** extension in **VSCode** to directly browse and develope on CM3.
 
 ### Initializing Git
-If you want to initialize a git repo on a directory your CM3 RPi these are the command:
+If you want to initialize a git repo on a directory your of CM3 RPi these are the command:
 ```
 $ git config --global user.name "Your Name"
 $ git config --global user.email "you@youraddress.com"
