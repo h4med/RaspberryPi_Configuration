@@ -80,7 +80,7 @@ For setting Wifi using nmcli read [this blog](#https://www.jeffgeerling.com/blog
 ### OTP and Setting MAC address
 CM3 uses the either board's serial number or MAC address written in OPT to set the MAC address. These are written for each CM3 in OTP (One Time Programmable) Memory. You can see [this PDF](/datasheets/Using-the-One-time-programmable-memory-on-Raspberry-Pi-single-board-computers.pdf) which explains OTP on Raspberry Pi SBCs. Run following command to display content of OTP:
 ```
-vcgencmd otp_dump
+$ vcgencmd otp_dump
 ```
 Address 28 is serial number, 36-43 is for customer usage and 64-65 is for MAC address if set. By default MAC address in OTP is not set and by above command you get 0 in its address. To manually set MAC address you can run following commands:
 ```
@@ -91,7 +91,7 @@ ip link set dev eth0 up
 ```
 To add this procedure to startup in kernel 6.1 we should use **systemd**. Open in editor:
 ```
-nano /etc/systemd/system/macchanger.service
+$ (sudo) nano /etc/systemd/system/macchanger.service
 ```
 Write this:
 ```
@@ -106,25 +106,25 @@ WantedBy=multi-user.target
 ```
 You have to give your path to script, for example [mac_add_setter.sh](/codes/mac_add_setter.sh). And finally:
 ```
-systemctl daemon-reload
-systemctl enable macchanger.service
-systemctl start macchanger.service
-systemctl status macchanger.service
+$ (sudo) systemctl daemon-reload
+$ (sudo) systemctl enable macchanger.service
+$ (sudo) systemctl start macchanger.service
+$ (sudo) systemctl status macchanger.service
 ```
 
 ### NTP Client Set-up
 Step 1: Install NTP Package
 ```
-apt update
-apt install ntp
+$ (sudo) apt update
+$ (sudo) apt install ntp
 ```
 Step 2: Backup Existing Configuration (Optional)
 ```
-cp /etc/ntp.conf /etc/ntp.conf.backup
+$ (sudo) cp /etc/ntp.conf /etc/ntp.conf.backup
 ```
 Step 3: Edit NTP Configuration File
 ```
-nano /etc/ntp.conf
+$ (sudo) nano /etc/ntp.conf
 ```
 Look for the lines starting with pool or server and comment them out by placing a # in front of them. Then, add the line below to specify the local NTP server.
 
@@ -133,42 +133,42 @@ server 192.168.0.1 iburst
 ```
 Step 4: Restart NTP Service
 ```
-systemctl restart ntp
+$ (sudo) systemctl restart ntp
 ```
 Step 5: Enable NTP Service to Start on Boot
 ```
-systemctl enable ntp
+$ (sudo) systemctl enable ntp
 ```
 Step 6: Verify Configuration
 After completing these steps, you should verify that the NTP client is properly synchronized with the server. You can do this by running:
 ```
-ntpq -p
+$ ntpq -p
 ```
 
 ---
 ## Step3: Necessary Software & SSH Settings
 Depending on your application you may need different software. Because I want to build C/C++ applications locally on CM3 and I also need Python I install following apps on DietPi (for Raspberry Pi Lite these are installed by default).
 ```
-apt update && apt install -y build-essential python3 automake autoconf
-apt install -y python3-smbus i2c-tools
-apt install -y can-utils
-apt install -y lsb-release
-apt install -y python3-pip
-apt install -y git
+$ (sudo) apt update && apt install -y build-essential python3 automake autoconf
+$ (sudo) apt install -y python3-smbus i2c-tools
+$ (sudo) apt install -y can-utils
+$ (sudo) apt install -y lsb-release
+$ (sudo) apt install -y python3-pip
+$ (sudo) apt install -y git
 ```
 For installing docker:
 
 ```
-curl -sSL https://get.docker.com | sh
+$ curl -sSL https://get.docker.com | sh
 ```
 After installing docker you may need to add your user to docker group.
 ```
-(sudo) usermod -aG docker YOUR_USER
+$ (sudo) usermod -aG docker YOUR_USER
 ```
 For removing dropbear and replacing it with openssh-server:
 ```
-apt install -y openssh-server
-apt purge --auto-remove dropbear
+$ (sudo) apt install -y openssh-server
+$ (sudo) apt purge --auto-remove dropbear
 ```   
 After installing **openssh-server** you can set it up as a sftp-server for file transfer using [How to setup an SFTP server on Ubuntu](https://www.pcwdld.com/setup-sftp-server-on-ubuntu).
 After installing openssh-server you should enable root login for dietpi by commenting out the following line in **/etc/ssh/sshd_config**
