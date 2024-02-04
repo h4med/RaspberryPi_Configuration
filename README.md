@@ -6,7 +6,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
   - [Raspberry Pi OS](#raspberry-pi-os)
   - [DietPi OS](#dietpi-os)
 - [Step2: Headless set-up](#step2-headless-set-up)
-  - [Static IP/DNS Address](#static-ip-dns-settings)
+  - [Static IP/DNS Address](#static-ipdns-settings)
   - [OTP and Setting MAC address](#otp-and-setting-mac-address)
   - [NTP Client Set-up](#ntp-client-set-up)
 - [Step3: Necessary Software & SSH Settings](#step3-necessary-software--ssh-settings)
@@ -67,14 +67,16 @@ netmask 255.255.255.0
 gateway 192.168.100.1
 dns-nameservers 8.8.8.8 8.8.4.4
 ```
-Raspberry Pi OS version 12 (Based on DEbian 12 Bookworm) uses NetworkManager instead of dhcpcd. To change DNS settings use following command:
+Raspberry Pi OS version 12 (Based on Debian 12 Bookworm) uses NetworkManager instead of dhcpcd. To change DNS settings use following command:
 ```
 $ (sudo) nmcli device mod eth0 ipv4.dns "8.8.8.8 8.8.4.4"
 ```
-Then restart NetwrokMAnager:
+Then restart NetwrokManager:
 ```
 $ (sudo) systemctl restart NetworkManager
 ```
+For setting Wifi using nmcli read [this blog](#https://www.jeffgeerling.com/blog/2023/nmcli-wifi-on-raspberry-pi-os-12-bookworm).
+
 ### OTP and Setting MAC address
 CM3 uses the either board's serial number or MAC address written in OPT to set the MAC address. These are written for each CM3 in OTP (One Time Programmable) Memory. You can see [this PDF](/datasheets/Using-the-One-time-programmable-memory-on-Raspberry-Pi-single-board-computers.pdf) which explains OTP on Raspberry Pi SBCs. Run following command to display content of OTP:
 ```
