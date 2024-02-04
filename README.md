@@ -6,7 +6,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
   - [Raspberry Pi OS](#raspberry-pi-os)
   - [DietPi OS](#dietpi-os)
 - [Step2: Headless set-up](#step2-headless-set-up)
-  - [Static IP Address](#static-ip-settings)
+  - [Static IP/DNS Address](#static-ip-dns-settings)
   - [OTP and Setting MAC address](#otp-and-setting-mac-address)
   - [NTP Client Set-up](#ntp-client-set-up)
 - [Step3: Necessary Software & SSH Settings](#step3-necessary-software--ssh-settings)
@@ -52,10 +52,10 @@ MAC Address: B8:27:EB:38:73:9C (Raspberry Pi Foundation)
 Default username and password for DietPi OS are **root/dietpi** and for Raspberry Pi OS is **pi/raspberry** unless you have changed it in settings in Imager before burning the image.
 After first login you must change the default password either by login prompt or using ```passwd``` in any Linux.
 
-### Static IP settings
+### Static IP/DNS settings
 Edit following file:
 ```
-(sudo) nano /etc/network/interfaces
+$ (sudo) nano /etc/network/interfaces
 ```
 and set your desired IP address:
 ```
@@ -66,6 +66,14 @@ address 192.168.100.137
 netmask 255.255.255.0
 gateway 192.168.100.1
 dns-nameservers 8.8.8.8 8.8.4.4
+```
+Raspberry Pi OS version 12 (Based on DEbian 12 Bookworm) uses NetworkManager instead of dhcpcd. To change DNS settings use following command:
+```
+$ (sudo) nmcli device mod eth0 ipv4.dns "8.8.8.8 8.8.4.4"
+```
+Then restart NetwrokMAnager:
+```
+$ (sudo) systemctl restart NetworkManager
 ```
 ### OTP and Setting MAC address
 CM3 uses the either board's serial number or MAC address written in OPT to set the MAC address. These are written for each CM3 in OTP (One Time Programmable) Memory. You can see [this PDF](/datasheets/Using-the-One-time-programmable-memory-on-Raspberry-Pi-single-board-computers.pdf) which explains OTP on Raspberry Pi SBCs. Run following command to display content of OTP:
