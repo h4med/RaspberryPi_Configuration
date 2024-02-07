@@ -19,7 +19,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
 - [Step6: Working with GPIO](#step6-working-with-gpios)
 - [Step7: GSM/4G Module ](#step7-gsm4g-module)
 - [Step8: CAN BUS setup using MCP2515](#step8-can-bus-setup-using-mcp2515)
-- [Step9: Test & Monitor Hardware](#step9-test--monitor-hardware)
+- [Step9: Hardware Test & Monitor](#step9-hardware-test--monitor)
 ---
 
 ## Step1: Burning Image
@@ -476,7 +476,7 @@ can1
 ~# ls /sys/bus/spi/devices/spi1.0/net/
 can0
 ```
-## Step9: Test & Monitor Hardware
+## Step9: Hardware Test & Monitor
 You can stress test CPUs with fake copy command:
 ```
 $ dd if=/dev/zero of=/dev/null &
@@ -512,4 +512,4 @@ To monitor Raspberry Pi's CPU temperature, core voltages and hardware related pe
 $ vcgencmd commands
 commands="commands, set_logging, bootloader_config, bootloader_version, cache_flush, codec_enabled, get_mem, get_rsts, measure_clock, measure_temp, measure_volts, get_hvs_asserts, get_config, get_throttled, pmicrd, pmicwr, read_ring_osc, version, otp_dump, set_vll_dir, set_backlight, get_lcd_info, arbiter, test_result, get_camera, enable_clock, scaling_kernel, scaling_sharpness, hdmi_ntsc_freqs, hdmi_adjust_clock, hdmi_status_show, hvs_update_fields, pwm_speedup, force_audio, hdmi_stream_channels, hdmi_channel_map, display_power, memtest, dispmanx_list, schmoo, render_bar, disk_notify, inuse_notify, sus_suspend, sus_status, sus_is_enabled, sus_stop_test_thread, egl_platform_switch, mem_validate, mem_oom, mem_reloc_stats, hdmi_cvt, hdmi_timings, readmr, vcos, ap_output_control, ap_output_post_processing, pm_set_policy, pm_get_status, pm_show_stats, pm_start_logging, pm_stop_logging, vctest_memmap, vctest_start, vctest_stop, vctest_set, vctest_get"
 ```
-And each command may have other inputs, Check [Herer](#https://elinux.org/RPI_vcgencmd_usage) for more details
+And each command may have other inputs, Check [here](#https://elinux.org/RPI_vcgencmd_usage) for more details.
