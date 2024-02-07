@@ -19,6 +19,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
 - [Step6: Working with GPIO](#step6-working-with-gpios)
 - [Step7: GSM/4G Module ](#step7-gsm4g-module)
 - [Step8: CAN BUS setup using MCP2515](#step8-can-bus-setup-using-mcp2515)
+- [Stress Test](#stress-test)
 ---
 
 ## Step1: Burning Image
@@ -472,4 +473,35 @@ spi0.0  spi0.1  spi1.0
 can1
 ~# ls /sys/bus/spi/devices/spi1.0/net/
 can0
+```
+
+# Stress test
+You can stress test CPUs with fake copy command:
+```
+$ dd if=/dev/zero of=/dev/null &
+```
+This will copy zeros to null very fast so one core goes up to 100%. To stess all CPUs you can run the command as many as CPU cores you have. to stop it simply run:
+```
+$ killall dd
+```
+For a more complete stress test you can install and use stress-ng:
+```
+$ (sudo) apt install stress-ng
+```
+Stress test all CPUs for 1 minute:
+```
+$ stress-ng --matrix 0 -t 1m
+```
+Read [this](#https://wiki.ubuntu.com/Kernel/Reference/stress-ng) for more commands.
+To test the network connections you can use iPerf 3. 
+```
+$ apt install iperf3
+```
+To use iPerf 3 you need a server and a client, to download and run server on another system first go [here](#https://iperf.fr/iperf-download.php#windows) and download proper version for your OS then run server (here a Windows machine):
+```
+iperf3.exe -s 
+```
+Then run client on your Raspberry Pi:
+```
+$ iperf3 -c <YOU_SERVER_IP> -t 1000
 ```
