@@ -498,7 +498,7 @@ To test the network connections you can use iPerf 3.
 ```
 $ apt install iperf3
 ```
-To use iPerf 3 you need a server and a client, to download and run server on another system first go [here](#https://iperf.fr/iperf-download.php#windows) and download proper version for your OS then run server (here a Windows machine):
+To use iPerf 3 you need a server and a client, to download and run server on another system first go [here](#https://iperf.fr/iperf-download.php) and download proper version for your OS then run server (here a Windows machine):
 ```
 iperf3.exe -s 
 ```
