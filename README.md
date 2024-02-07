@@ -19,7 +19,7 @@ Step by step guide to set up a Compute Module Raspberry Pi Model 3.
 - [Step6: Working with GPIO](#step6-working-with-gpios)
 - [Step7: GSM/4G Module ](#step7-gsm4g-module)
 - [Step8: CAN BUS setup using MCP2515](#step8-can-bus-setup-using-mcp2515)
-- [Stress Test](#stress-test)
+- [Step9: Test & Monitor Hardware](#step9-test--monitor-hardware)
 ---
 
 ## Step1: Burning Image
@@ -243,6 +243,7 @@ CREATE DATABASE db_name;
 USE db_name;
 source /path/to/file.sql
 ```
+
 ---
 ## Step4: Adding RTC
 In our carrier board we have a DS3231 RTC. [Here](https://learn.adafruit.com/adding-a-real-time-clock-to-raspberry-pi?view=all#set-up-and-test-i2c) is a good set up guide for this RTC.
@@ -258,7 +259,7 @@ Here, the DS3231 is connect to I2C-0 by pins 28 and 29 of CM3.
 Detailed information regarding device tree configuration for Raspberry Pi can be found at **[Rpi Overlays](https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README)**.
 After a reboot we can check that hardware set up is ok:
 ```
-# i2cdetect -y 0
+$ i2cdetect -y 0
      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
 00:                         -- -- -- -- -- -- -- --
 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -274,32 +275,33 @@ If instead of ``UU`` you see the address of chip such as ```0x68``` it means tha
 Run the following commands:
 
 ```
-apt -y remove fake-hwclock
-update-rc.d -f fake-hwclock remove
-systemctl disable fake-hwclock
+$ apt -y remove fake-hwclock
+$ update-rc.d -f fake-hwclock remove
+$ systemctl disable fake-hwclock
 ```
 And then follow the **systemd** settings based on the [Adafruit tutorial](https://learn.adafruit.com/adding-a-real-time-clock-to-raspberry-pi?view=all#raspberry-pi-oss-with-systemd-2026471).
 We then set the time-zone using ```raspi-config``` or ```dietpi-config``` accordingly.
 We can test that RTC works properly by this command:
 ```
-# hwclock -r
+$ hwclock -r
 2023-04-19 13:53:01.186700+03:30
 ```
 You can use the following command to **read temperature** from DS3231 RTC:
 ```
-cat /sys/bus/i2c/devices/1-0068/hwmon/hwmon1/temp1_input
+$ cat /sys/bus/i2c/devices/1-0068/hwmon/hwmon1/temp1_input
 ```
 
 ### Time-zone correction for IRAN 2023 (IRST)
 If your kernel is old and your time-zone for Iran is IRDT (Iran Daylight Time) then after March 20th 2023 your time shift for summer time is 4:30 instead of 3:30. You should change your time-zone to IRST (Iran Standard Time), copy this file: **[IRST/Iran-noDST](https://github.com/h4med/RaspberryPi_Configuration/tree/main/IRST)** to:
 ```
-cp Iran-noDST /usr/share/zoneinfo/Asia/
+$ cp Iran-noDST /usr/share/zoneinfo/Asia/
 ```
 Then change the sym-link to new file:
 ```
-unlink /etc/localtime
-ln -s /usr/share/zoneinfo/Asia/Iran-noDST /etc/localtime
+$ unlink /etc/localtime
+$ ln -s /usr/share/zoneinfo/Asia/Iran-noDST /etc/localtime
 ```
+
 ---
 ## Step5: Serial Ports
 As usual we first add the configuration to **/boot/config.txt** 
@@ -474,13 +476,12 @@ can1
 ~# ls /sys/bus/spi/devices/spi1.0/net/
 can0
 ```
-
-# Stress test
+## Step9: Test & Monitor Hardware
 You can stress test CPUs with fake copy command:
 ```
 $ dd if=/dev/zero of=/dev/null &
 ```
-This will copy zeros to null very fast so one core goes up to 100%. To stess all CPUs you can run the command as many as CPU cores you have. to stop it simply run:
+This will copy zeros to null very fast so one core goes up to 100%. To stress all CPUs you can run the command as many as CPU cores you have. to stop it simply run:
 ```
 $ killall dd
 ```
@@ -505,3 +506,10 @@ Then run client on your Raspberry Pi:
 ```
 $ iperf3 -c <YOU_SERVER_IP> -t 1000
 ```
+
+To monitor Raspberry Pi's CPU temperature, core voltages and hardware related peripherials you can use ```vcgencmd``` command. This command has lots of usefull sub-commands you can use to monitor hardware status of your Raspberry Pi.
+```
+$ vcgencmd commands
+commands="commands, set_logging, bootloader_config, bootloader_version, cache_flush, codec_enabled, get_mem, get_rsts, measure_clock, measure_temp, measure_volts, get_hvs_asserts, get_config, get_throttled, pmicrd, pmicwr, read_ring_osc, version, otp_dump, set_vll_dir, set_backlight, get_lcd_info, arbiter, test_result, get_camera, enable_clock, scaling_kernel, scaling_sharpness, hdmi_ntsc_freqs, hdmi_adjust_clock, hdmi_status_show, hvs_update_fields, pwm_speedup, force_audio, hdmi_stream_channels, hdmi_channel_map, display_power, memtest, dispmanx_list, schmoo, render_bar, disk_notify, inuse_notify, sus_suspend, sus_status, sus_is_enabled, sus_stop_test_thread, egl_platform_switch, mem_validate, mem_oom, mem_reloc_stats, hdmi_cvt, hdmi_timings, readmr, vcos, ap_output_control, ap_output_post_processing, pm_set_policy, pm_get_status, pm_show_stats, pm_start_logging, pm_stop_logging, vctest_memmap, vctest_start, vctest_stop, vctest_set, vctest_get"
+```
+And each command may have other inputs, Check [Herer](#https://elinux.org/RPI_vcgencmd_usage) for more details
